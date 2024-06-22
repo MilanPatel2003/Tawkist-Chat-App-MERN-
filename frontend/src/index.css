@@ -1,22 +1,20 @@
 /* App.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-              url("/bg1.jpg");
+    url("/bg1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
 
-
 .theme-default {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-              url("/bg1.jpg");
+    url("/bg1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -25,7 +23,7 @@ body {
 
 .theme-yourname {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-              url("/yourname.jpg");
+    url("/yourname.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -34,7 +32,7 @@ body {
 
 .theme-jujutsukaisen {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-              url("/jujutsukaisen.jpg");
+    url("/jujutsukaisen.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -43,7 +41,7 @@ body {
 
 .theme-avengers {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-              url("/avengers.jpg");
+    url("/avengers.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -52,10 +50,26 @@ body {
 
 .theme-waifu {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-              url("/waifu.jpg");
+    url("/waifu.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
 
+/* ::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #555;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #121212;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #242424;
+}  */

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
+  const {setToken}=useAuthContext()
 
   const signUp = async ({
     fullName,
@@ -27,18 +29,22 @@ const useSignup = () => {
       });
 
       const data = await res.json();
+      console.log(data);
 
       if (res.ok) {
         toast.success("Signup successful!");
+        localStorage.setItem("chat-app-token",JSON.stringify(data.token))
+        setToken(data.token)
         // console.log("signup successful", data);
       } else {
         toast.error(
           data.extraDetails || data.message || data.error || "Signup failed"
         );
+        throw new Error(data.error);
         // console.log("Signup failed:", data);
       }
     } catch (error) {
-      toast.error("An error occurred during signup refresh the page!");
+      toast.error(error)
       console.error("signup error", error);
     } finally {
       setLoading(false);

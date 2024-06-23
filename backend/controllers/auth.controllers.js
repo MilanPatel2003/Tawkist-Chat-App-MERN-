@@ -39,12 +39,12 @@ export const signup = async (req, res) => {
     //If User created sending response else error
     if (createUser) {
       //Generate JWT token
-      generateTokenAndSetCookie(createUser._id, res);
+     const token = generateTokenAndSetCookie(createUser._id, res);
 
       await createUser.save();
-      res
+      return res
         .status(200)
-        .json({ message: "User created successfully", _id: createUser._id });
+        .json({ message: "User created successfully", _id: createUser._id, token});
     } else {
       res.status(400).json({ error: "invalid User data" });
     }
@@ -67,13 +67,14 @@ export const login = async (req, res) => {
     if (!userExists || !isPasswordCorrect) {
       res.status(400).json({ error: "!Invalid Credentias" });
     }
-    generateTokenAndSetCookie(userExists._id, res);
+    const token = generateTokenAndSetCookie(userExists._id, res);
     console.log("user logged in");
     res.status(200).json({
       message: "Login Successful...",
       fullName: userExists.fullName,
       userName: userExists.userName,
       gender: userExists.gender,
+      token
     });
   } catch (error) {
     console.log("Error while Logging User", error.message);

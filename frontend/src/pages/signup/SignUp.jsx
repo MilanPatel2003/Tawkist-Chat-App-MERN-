@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import GenderCheckbox from "./GenderCheckbox";
+import { Link } from "react-router-dom";
+import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
+  const [fields, setfields] = useState({
+    fullName: "",
+    userName: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+  });
+  const { loading, signUp } = useSignup();
+  const handleCheckbox = (gender) => {
+    setfields({ ...fields, gender });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await signUp(fields);
+    console.log(fields);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
@@ -9,7 +29,7 @@ const SignUp = () => {
           Sign Up <span className="text-primary"> Tawkist</span>
         </h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text text-primary">
@@ -18,6 +38,10 @@ const SignUp = () => {
             </label>
             <input
               type="text"
+              value={fields.fullName}
+              onChange={(e) =>
+                setfields({ ...fields, fullName: e.target.value })
+              }
               placeholder="Enter Full Name"
               className="w-full input bg-transparent focus-within:border-primary text-white h-10"
             />
@@ -31,6 +55,10 @@ const SignUp = () => {
             </label>
             <input
               type="text"
+              value={fields.userName}
+              onChange={(e) =>
+                setfields({ ...fields, userName: e.target.value })
+              }
               placeholder="Enter Usename"
               className="w-full input bg-transparent focus-within:border-primary text-white h-10"
             />
@@ -44,8 +72,13 @@ const SignUp = () => {
             </label>
             <input
               type="password"
+              value={fields.password}
+              onChange={(e) =>
+                setfields({ ...fields, password: e.target.value })
+              }
               placeholder="Enter Password"
               className="w-full input bg-transparent focus-within:border-primary text-white h-10"
+              autoComplete="off"
             />
           </div>
 
@@ -57,21 +90,29 @@ const SignUp = () => {
             </label>
             <input
               type="password"
+              value={fields.confirmPassword}
+              onChange={(e) =>
+                setfields({ ...fields, confirmPassword: e.target.value })
+              }
               placeholder="Confirm Password"
               className="w-full input bg-transparent focus-within:border-primary text-white h-10"
+              autoComplete="off"
             />
           </div>
 
-          <a
+          <Link
             className="text-sm hover:underline hover:text-primary text-slate-400 mt-2 inline-block"
-            href="#"
+            to="/login"
           >
             Already have an account?
-          </a>
-          <GenderCheckbox></GenderCheckbox>
+          </Link>
+          <GenderCheckbox
+            onCheckboxChange={handleCheckbox}
+            selectedValue={fields.gender}
+          ></GenderCheckbox>
           <div>
-            <button className="btn btn-block btn-sm mt-2 bg-primary hover:bg-opacity-10 text-white">
-              Sign Up
+            <button className="btn btn-block btn-sm mt-2 bg-primary hover:bg-opacity-10 text-white disabled={loading}">
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
           </div>
         </form>

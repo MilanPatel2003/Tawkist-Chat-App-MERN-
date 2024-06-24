@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
+  const { loading, login } = useLogin();
+  const [fields, setfields] = useState({
+    userName: "",
+    password: "",
+  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(fields);
+    login(fields);
+  };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
@@ -10,7 +21,7 @@ const Login = () => {
           <span className="text-primary"> Tawkist</span>
         </h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text text-primary">
@@ -19,6 +30,10 @@ const Login = () => {
             </label>
             <input
               type="text"
+              value={fields.userName}
+              onChange={(e) =>
+                setfields({ ...fields, userName: e.target.value })
+              }
               placeholder="Enter username"
               className="w-full input h-10 bg-transparent focus-within:border-primary text-white"
             />
@@ -32,6 +47,10 @@ const Login = () => {
             </label>
             <input
               type="password"
+              value={fields.password}
+              onChange={(e) =>
+                setfields({ ...fields, password: e.target.value })
+              }
               placeholder="Enter Password"
               className="w-full input h-10 bg-transparent focus-within:border-primary text-white"
             />
@@ -44,7 +63,13 @@ const Login = () => {
           </Link>
 
           <div>
-            <button className="btn btn-block btn-sm mt-2 bg-primary hover:bg-opacity-10 text-white">Login</button>
+            <button className="btn btn-block btn-sm mt-2 bg-primary hover:bg-opacity-10 text-white disabled={loading}">
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Login"
+              )}
+            </button>
           </div>
         </form>
       </div>

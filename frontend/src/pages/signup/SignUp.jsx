@@ -112,7 +112,11 @@ const SignUp = () => {
           ></GenderCheckbox>
           <div>
             <button className="btn btn-block btn-sm mt-2 bg-primary hover:bg-opacity-10 text-white disabled={loading}">
-              {loading ? "Signing Up..." : "Sign Up"}
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </div>
         </form>

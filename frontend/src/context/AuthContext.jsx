@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
@@ -7,13 +7,17 @@ export const useAuthContext = () => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-  const [token, setToken] = useState(
-    JSON.parse(localStorage.getItem("chat-app-token")) || null
-  );
+  const [token, setToken] = useState(() => {
+    return JSON.parse(localStorage.getItem("chat-app-token")) || null;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("chat-app-token", JSON.stringify(token));
+  }, [token]);
+
   return (
     <AuthContext.Provider value={{ token, setToken }}>
-      {" "}
-      {children}{" "}
+      {children}
     </AuthContext.Provider>
   );
 };

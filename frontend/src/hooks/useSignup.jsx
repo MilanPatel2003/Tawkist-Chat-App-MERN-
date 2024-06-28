@@ -33,8 +33,8 @@ const useSignup = () => {
 
       if (res.ok) {
         toast.success("Signup successful!");
-        localStorage.setItem("chat-app-token", JSON.stringify(data.token));
-        setToken(data.token);
+        localStorage.setItem("chat-app-token", JSON.stringify(data));
+        setToken(data);
         // console.log("signup successful", data);
       } else {
         toast.error(

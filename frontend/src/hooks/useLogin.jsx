@@ -19,8 +19,8 @@ const useLogin = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem("chat-app-token", JSON.stringify(data.token));
-        setToken(data.token);
+        localStorage.setItem("chat-app-token", JSON.stringify(data));
+        setToken(data);
         toast.success(data.message);
       } else {
         toast.error(

@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
+import { getReceiverSocketId, io } from "../socket/Socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -32,8 +33,13 @@ export const sendMessage = async (req, res) => {
     // Save conversation and message in parallel
     await Promise.all([conversation.save(), newMessage.save()]);
 
-    res.status(200).json(newMessage);
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+    
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
+    res.status(200).json(newMessage);
   } catch (error) {
     console.error("Error while Sending Message", error.message);
     res.status(500).json({ error: "Internal Server Error" });
@@ -57,7 +63,6 @@ export const getMessage = async (req, res) => {
 
     const messages = conversation.messages;
     res.status(200).json(messages);
-
   } catch (error) {
     console.error("Error while Getting Message", error.message);
     res.status(500).json({ error: "Internal Server Error" });

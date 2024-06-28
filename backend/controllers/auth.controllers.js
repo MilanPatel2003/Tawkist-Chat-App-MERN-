@@ -24,8 +24,9 @@ export const signup = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt);
 
     //Create Profile pic using api
-    const boyProfilepic = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
-    const girlProfilepic = `https://avatar.iran.liara.run/public/girl?username=${userName}`;
+    // const boyProfilepic = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
+    // const girlProfilepic = `https://avatar.iran.liara.run/public/girl?username=${userName}`;
+    const profilePic = `https://ui-avatars.com/api/?background=random&name=${userName}`;
 
     //Create user if it doesn't exist
     const createUser = await User.create({
@@ -33,7 +34,8 @@ export const signup = async (req, res) => {
       userName,
       password: hashPassword,
       gender,
-      profilePic: gender === "male" ? boyProfilepic : girlProfilepic,
+      // profilePic: gender === "male" ? boyProfilepic : girlProfilepic,
+      profilePic,
     });
 
     //If User created sending response else error
@@ -44,7 +46,9 @@ export const signup = async (req, res) => {
       await createUser.save();
       return res.status(200).json({
         message: "User created successfully",
+        fullName: fullName,
         _id: createUser._id,
+        profilePic: profilePic,
         token,
       });
     } else {

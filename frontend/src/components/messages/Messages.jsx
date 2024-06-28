@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from "react";
 import Message from "./Message";
 import usegetMessage from "../../hooks/usegetMessage";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
+import usegetMessageRealtime from "../../hooks/usegetMessageRealtime";
 
 const Messages = () => {
   const { loading, messages } = usegetMessage();
+  usegetMessageRealtime();
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -29,9 +31,10 @@ const Messages = () => {
 
       {loading && [...Array(5)].map((_, idx) => <MessageSkeleton key={idx} />)}
       {!loading && messages.length === 0 && (
-        <p className="text-center text-base-300">Send a message to start the conversation</p>
+        <p className="text-center text-base-300">
+          Send a message to start the conversation
+        </p>
       )}
-      
     </div>
   );
 };

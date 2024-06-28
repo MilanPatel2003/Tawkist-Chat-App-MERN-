@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      const socket = io("http://localhost:5000", {
+      const socket = io("https://tawkist-chat-application.onrender.com", {
         query: {
           userId: token._id, //userid
         },

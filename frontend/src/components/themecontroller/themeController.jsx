@@ -79,7 +79,7 @@ const ThemeController = () => {
         style={{ position: "fixed", top: "130px", right: "10px" }}
       >
         <label className="label cursor-pointer gap-4">
-          <span className="label-text text-white">🎀Kash ki theme🎀</span>
+          <span className="label-text text-white">🎀waifu</span>
           <input
             type="radio"
             name="theme-radios"

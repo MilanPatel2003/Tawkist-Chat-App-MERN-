@@ -50,7 +50,7 @@ body {
 
 .theme-waifu {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url("/temp.png");
+    url("/waifu.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
